@@ -58,23 +58,29 @@ const handleClerkWebhook = httpAction(async (ctx, req) => {
 
   switch (event.type) {
     case "user.created": {
-      await ctx.runMutation(internal.user.create, {
-        username:
-          `${event.data.first_name || ""} ${event.data.last_name || ""}`.trim(),
-        imageUrl: event.data.image_url,
+      const existingUser = await ctx.runQuery(internal.user.get, {
         clerkId: event.data.id,
-        email: event.data.email_addresses?.[0]?.email_address || "",
       });
+
+      if (!existingUser) {
+        await ctx.runMutation(internal.user.create, {
+          username:
+            `${event.data.first_name || ""} ${event.data.last_name || ""}`.trim(),
+          imageUrl: event.data.image_url,
+          clerkId: event.data.id,
+          email: event.data.email_addresses?.[0]?.email_address || "",
+        });
+      }
 
       break;
     }
 
     case "user.updated": {
-      await ctx.runMutation(internal.user.create, {
+      await ctx.runMutation(internal.user.update, {
+        clerkId: event.data.id,
         username:
           `${event.data.first_name || ""} ${event.data.last_name || ""}`.trim(),
         imageUrl: event.data.image_url,
-        clerkId: event.data.id,
         email: event.data.email_addresses?.[0]?.email_address || "",
       });
 
