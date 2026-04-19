@@ -13,6 +13,29 @@ export const create = internalMutation({
   },
 });
 
+export const update = internalMutation({
+  args: {
+    clerkId: v.string(),
+    username: v.string(),
+    imageUrl: v.string(),
+    email: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerkId", (q) => q.eq("clerkId", args.clerkId))
+      .unique();
+
+    if (!user) return;
+
+    await ctx.db.patch(user._id, {
+      username: args.username,
+      imageUrl: args.imageUrl,
+      email: args.email,
+    });
+  },
+});
+
 export const get = internalQuery({
   args: { clerkId: v.string() },
   async handler(ctx, args) {
