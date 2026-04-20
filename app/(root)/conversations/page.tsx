@@ -1,11 +1,8 @@
-import React from 'react';
+import { ConversationFallback } from "@/components/shared/conversation/ConversationFallback";
+import React from "react";
 
 const ConversationsPage = () => {
-    return (
-        <div>
-            ConversationsPage
-        </div>
-    );
+  return <ConversationFallback />;
 };
 
 export default ConversationsPage;
