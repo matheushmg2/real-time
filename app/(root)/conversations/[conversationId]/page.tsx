@@ -1,10 +1,11 @@
+import { ConversationContainer } from '@/components/shared/conversation/ConversationContainer';
 import React from 'react';
 
 const ConversationsPage = () => {
     return (
-        <div>
+        <ConversationContainer>
             ConversationsPageId
-        </div>
+        </ConversationContainer>
     );
 };
 
