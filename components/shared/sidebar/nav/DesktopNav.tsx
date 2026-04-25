@@ -1,5 +1,6 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/ui/theme/theme-toggle";
@@ -28,6 +29,7 @@ const DesktopNav = () => {
                       <Button
                         size="icon"
                         variant={path.active ? "default" : "outline"}
+                        className="relative"
                       >
                         {path.icon}
                       </Button>
@@ -35,6 +37,11 @@ const DesktopNav = () => {
                     <TooltipContent>
                       <p>{path.name}</p>
                     </TooltipContent>
+                    {path.count ? (
+                      <Badge className="absolute left-5 bottom-6 w-5 h-5 border-2 dark:border-popover border-white">
+                        {path.count}
+                      </Badge>
+                    ) : null}
                   </Tooltip>
                 </Link>
               </li>
