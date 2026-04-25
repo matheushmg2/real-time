@@ -1,5 +1,6 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/ui/theme/theme-toggle";
@@ -18,7 +19,7 @@ const MobileNav = () => {
 
   const { isActive } = useConversation();
 
-  if(isActive) return null
+  if (isActive) return null;
 
   return (
     <Card className="fixed bottom-4 w-[calc(100vw-32px)] justify-center flex items-center h-16 p-2 lg:hidden">
@@ -41,6 +42,11 @@ const MobileNav = () => {
                       <p>{path.name}</p>
                     </TooltipContent>
                   </Tooltip>
+                  {path.count ? (
+                    <Badge className="absolute left-7 bottom-7 w-5 h-5 border-2 dark:border-popover border-white">
+                      {path.count}
+                    </Badge>
+                  ) : null}
                 </Link>
               </li>
             );
